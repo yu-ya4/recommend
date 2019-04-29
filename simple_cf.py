@@ -37,7 +37,7 @@ def jaccard_similarity(x, y):
 
 
 # 過去の行動履歴に基づいた 2 ユーザの類似度を計算
-def get_similariy(user1, user2):
+def get_similarity(user1, user2):
 
     # ユーザの行動履歴
     history1 = data[user1]
@@ -70,7 +70,7 @@ def get_recommends(user):
     others = list(data.keys()); others.remove(user)
 
     for other in others:
-        sim = get_similariy(user, other)
+        sim = get_similarity(user, other)
 
         for new_item in new_items:
             if new_item in data[other]:
