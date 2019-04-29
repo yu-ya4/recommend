@@ -27,7 +27,7 @@ data = {
 }
 
 
-# ジャカード係数を計算
+# ジャッカード係数を計算
 def jaccard_similarity(x, y):
     intersection = len(x.intersection(y))
     union = len(x.union(y))
