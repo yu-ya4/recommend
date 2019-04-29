@@ -1,3 +1,5 @@
+all_items = {"ナルニア", "ハリポタ", "広辞苑", "指輪物語", "統計学入門"}
+
 data = {
     "A": {
         "ナルニア": 1, "ハリポタ": 1, "広辞苑": 0, "指輪物語": 1, "統計学入門": 0
@@ -46,3 +48,28 @@ def get_similariy(user1, user2):
 
     return jaccard_similarity(possitive_items1, possitive_items2)
 
+
+# 協調フィルタリングを用いて算出された推薦（ランキング）を得る
+def get_recommends(user):
+    # 対象ユーザがまだ推薦されていないアイテムの集合：推薦対象アイテム
+    new_items = all_items - set(data[user].keys())
+    # 推薦対象アイテムの予測評価値を入れる箱
+    sum_scores = {item: 0.0 for item in new_items}
+    sum_sim = {item: 0 for item in new_items}
+    # # 対象ユーザ以外のユーザ
+    others = list(data.keys()); others.remove(user)
+
+    for other in others:
+        sim = get_similariy(user, other)
+
+        for new_item in new_items:
+            if new_item in data[other]:
+                # "評価値" × "類似度" を推薦度のスコアとして，全ユーザについて合計する
+                sum_scores[new_item] += data[other][new_item] * sim
+                # アイテムごとのユーザの類似度の合計を計算しておき，上記のスコアを割る（加重平均のイメージ）
+                sum_sim[new_item] += sim
+
+    recommends = {item: sum_scores[item] / sum_sim[item] for item in new_items}
+    recommends = sorted(recommends.items(), key=lambda x:x[1], reverse=True)
+
+    return recommends
