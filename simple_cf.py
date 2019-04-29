@@ -1,3 +1,11 @@
+"""
+Simple Collaborative Filtering.
+An user based model.
+
+recommends = get_recommends("C")
+> [('ハリポタ', 0.6666666666666666), ('統計学入門', 0.27272727272727276)]
+"""
+
 all_items = {"ナルニア", "ハリポタ", "広辞苑", "指輪物語", "統計学入門"}
 
 data = {
