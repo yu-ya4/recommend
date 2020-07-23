@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -uCx
+
+### flake8
+flake8 recommend
+
+### mypy
+mypy recommend
+
+## black
+black recommend --diff --check
