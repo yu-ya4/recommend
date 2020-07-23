@@ -11,21 +11,11 @@ all_items = {"ナルニア", "ハリポタ", "広辞苑", "指輪物語", "統�
 # 推薦されたアイテムについての情報のみ存在する。
 # 購入したら 1, 購入しなかったら 0
 data = {
-    "A": {
-        "ナルニア": 1, "ハリポタ": 1, "広辞苑": 0, "指輪物語": 1, "統計学入門": 0
-    },
-    "B": {
-        "ハリポタ": 0, "広辞苑": 1, "指輪物語": 0, "統計学入門": 1
-    },
-    "C": {
-        "ナルニア": 1, "広辞苑": 0, "指輪物語": 1
-    },
-    "D": {
-        "ナルニア": 1, "ハリポタ": 0, "広辞苑": 1, "統計学入門": 1
-    },
-    "E": {
-        "ナルニア": 0, "広辞苑": 1, "指輪物語": 1, "統計学入門": 0
-    },
+    "A": {"ナルニア": 1, "ハリポタ": 1, "広辞苑": 0, "指輪物語": 1, "統計学入門": 0},
+    "B": {"ハリポタ": 0, "広辞苑": 1, "指輪物語": 0, "統計学入門": 1},
+    "C": {"ナルニア": 1, "広辞苑": 0, "指輪物語": 1},
+    "D": {"ナルニア": 1, "ハリポタ": 0, "広辞苑": 1, "統計学入門": 1},
+    "E": {"ナルニア": 0, "広辞苑": 1, "指輪物語": 1, "統計学入門": 0},
 }
 
 
@@ -48,13 +38,17 @@ def get_similarity(user1, user2):
     recommended_items2 = set(history2.keys())
     recommended_both = recommended_items1.intersection(recommended_items2)
 
-    #両方ともに推薦されたアイテムがなければ類似度 0 とする。
+    # 両方ともに推薦されたアイテムがなければ類似度 0 とする。
     if len(recommended_both) == 0:
         return 0.0
 
     # 両方とものユーザに推薦されていてかつ，購入したアイテムの集合をとる。
-    possitive_items1 = set([key for key, val in history1.items() if key in recommended_both and val == 1])
-    possitive_items2 = set([key for key, val in history2.items() if key in recommended_both and val == 1])
+    possitive_items1 = set(
+        [key for key, val in history1.items() if key in recommended_both and val == 1]
+    )
+    possitive_items2 = set(
+        [key for key, val in history2.items() if key in recommended_both and val == 1]
+    )
 
     return jaccard_similarity(possitive_items1, possitive_items2)
 
@@ -67,7 +61,8 @@ def get_recommends(user):
     sum_scores = {item: 0.0 for item in new_items}
     sum_sim = {item: 0 for item in new_items}
     # # 対象ユーザ以外のユーザ
-    others = list(data.keys()); others.remove(user)
+    others = list(data.keys())
+    others.remove(user)
 
     for other in others:
         sim = get_similarity(user, other)
@@ -80,9 +75,10 @@ def get_recommends(user):
                 sum_sim[new_item] += sim
 
     recommends = {item: sum_scores[item] / sum_sim[item] for item in new_items}
-    recommends = sorted(recommends.items(), key=lambda x:x[1], reverse=True)
+    recommends = sorted(recommends.items(), key=lambda x: x[1], reverse=True)
 
     return recommends
+
 
 if __name__ == "__main__":
     a = data["A"]
@@ -94,7 +90,7 @@ if __name__ == "__main__":
     sim_B = get_similarity("C", "B")
     sim_D = get_similarity("C", "D")
     sim_E = get_similarity("C", "E")
-        # sim
+    # sim
     # >>> 1.0 0.0 0.5 0.3333333333333333
     print(sim_A, sim_B, sim_D, sim_E)
     # >>> a
