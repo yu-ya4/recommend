@@ -83,3 +83,26 @@ def get_recommends(user):
     recommends = sorted(recommends.items(), key=lambda x:x[1], reverse=True)
 
     return recommends
+
+if __name__ == "__main__":
+    a = data["A"]
+    b = data["B"]
+    a = set(key for key, val in data["A"].items() if val == 1)
+    c = set(key for key, val in data["C"].items() if val == 1)
+    # sim = get_similarity("C", "E")
+    sim_A = get_similarity("C", "A")
+    sim_B = get_similarity("C", "B")
+    sim_D = get_similarity("C", "D")
+    sim_E = get_similarity("C", "E")
+        # sim
+    # >>> 1.0 0.0 0.5 0.3333333333333333
+    print(sim_A, sim_B, sim_D, sim_E)
+    # >>> a
+    # {'ナルニア', '指輪物語', 'ハリポタ'}
+    # >>> c
+    # {'ナルニア', '指輪物語'}
+
+    recommends = get_recommends("C")
+    # >>> recommends
+    # [('ハリポタ', 0.6666666666666666), ('統計学入門', 0.27272727272727276)]
+    print(recommends)
