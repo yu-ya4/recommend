@@ -6,6 +6,8 @@ recommends = get_recommends("C")
 > [('ハリポタ', 0.6666666666666666), ('統計学入門', 0.27272727272727276)]
 """
 
+from typing import List, Set, Tuple
+
 all_items = {"ナルニア", "ハリポタ", "広辞苑", "指輪物語", "統計学入門"}
 
 # 推薦されたアイテムについての情報のみ存在する。
@@ -20,14 +22,14 @@ data = {
 
 
 # ジャッカード係数を計算
-def jaccard_similarity(x, y):
+def jaccard_similarity(x: Set[str], y: Set[str]) -> float:
     intersection = len(x.intersection(y))
     union = len(x.union(y))
     return float(intersection / union)
 
 
 # 過去の行動履歴に基づいた 2 ユーザの類似度を計算
-def get_similarity(user1, user2):
+def get_similarity(user1: str, user2: str) -> float:
 
     # ユーザの行動履歴
     history1 = data[user1]
@@ -54,12 +56,12 @@ def get_similarity(user1, user2):
 
 
 # 協調フィルタリングを用いて算出された推薦（ランキング）を得る
-def get_recommends(user):
+def get_recommends(user: str) -> List[Tuple[str, float]]:
     # 対象ユーザがまだ推薦されていないアイテムの集合：推薦対象アイテム
     new_items = all_items - set(data[user].keys())
     # 推薦対象アイテムの予測評価値を入れる箱
     sum_scores = {item: 0.0 for item in new_items}
-    sum_sim = {item: 0 for item in new_items}
+    sum_sim = {item: 0.0 for item in new_items}
     # # 対象ユーザ以外のユーザ
     others = list(data.keys())
     others.remove(user)
