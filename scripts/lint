@@ -3,10 +3,10 @@
 set -uCx
 
 ### flake8
-flake8 recommend
+flake8 src/recommend
 
 ### mypy
-mypy recommend
+mypy src/recommend
 
 ## black
-black recommend --diff --check
+black src/recommend --diff
