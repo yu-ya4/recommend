@@ -76,29 +76,26 @@ def get_recommends(user: str) -> List[Tuple[str, float]]:
                 # アイテムごとのユーザの類似度の合計を計算しておき，上記のスコアを割る（加重平均のイメージ）
                 sum_sim[new_item] += sim
 
-    recommends = {item: sum_scores[item] / sum_sim[item] for item in new_items}
-    recommends = sorted(recommends.items(), key=lambda x: x[1], reverse=True)
+    scores = {item: sum_scores[item] / sum_sim[item] for item in new_items}
+    recommends = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
     return recommends
 
 
 if __name__ == "__main__":
-    a = data["A"]
-    b = data["B"]
     a = set(key for key, val in data["A"].items() if val == 1)
     c = set(key for key, val in data["C"].items() if val == 1)
-    # sim = get_similarity("C", "E")
-    sim_A = get_similarity("C", "A")
-    sim_B = get_similarity("C", "B")
-    sim_D = get_similarity("C", "D")
-    sim_E = get_similarity("C", "E")
-    # sim
-    # >>> 1.0 0.0 0.5 0.3333333333333333
-    print(sim_A, sim_B, sim_D, sim_E)
     # >>> a
     # {'ナルニア', '指輪物語', 'ハリポタ'}
     # >>> c
     # {'ナルニア', '指輪物語'}
+
+    sim_A = get_similarity("C", "A")
+    sim_B = get_similarity("C", "B")
+    sim_D = get_similarity("C", "D")
+    sim_E = get_similarity("C", "E")
+    print(sim_A, sim_B, sim_D, sim_E)
+    # 1.0 0.0 0.5 0.3333333333333333
 
     recommends = get_recommends("C")
     # >>> recommends
