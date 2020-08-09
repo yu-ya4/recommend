@@ -36,3 +36,11 @@ def test_get_similarity() -> None:
 
     res4 = get_similarity(user1="A", user2="D")
     assert res4 == 0.25, "The similarity between userA and userD must be 0.25."
+
+
+def test_get_recommend() -> None:
+    res = get_recommends("C")
+    assert res == [
+        ("ハリポタ", 0.6666666666666666),
+        ("統計学入門", 0.27272727272727276),
+    ], "The recommended items for userC are not correct."
