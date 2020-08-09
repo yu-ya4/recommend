@@ -5,9 +5,6 @@ cache: 'pip'
 services:
 - docker
 
-script:
-    - pytest tests.py
-
 jobs:
   include:
   - name: "lint"
