@@ -686,7 +686,7 @@ wcwidth = "*"
 [[package]]
 category = "dev"
 description = "Run a subprocess in a pseudo terminal"
-marker = "sys_platform != \"win32\" or os_name != \"nt\" or python_version >= \"3.3\" and sys_platform != \"win32\""
+marker = "python_version >= \"3.3\" and sys_platform != \"win32\" or sys_platform != \"win32\" or os_name != \"nt\" or python_version >= \"3.3\" and sys_platform != \"win32\" and (python_version >= \"3.3\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -817,23 +817,6 @@ version = "1.3.1"
 
 [package.dependencies]
 pytest = ">=2.7.0"
-
-[[package]]
-category = "dev"
-description = "Databases fixtures plugin for py.test."
-name = "pytest-dbfixtures"
-optional = false
-python-versions = "*"
-version = "1.0.0"
-
-[package.extras]
-dynamodb = ["pytest-dynamodb"]
-elasticsearch = ["pytest-elasticsearch"]
-mongodb = ["pytest-mongo"]
-mysql = ["pytest-mysql"]
-postgresql = ["pytest-postgresql"]
-rabbitmq = ["pytest-rabbitmq"]
-redis = ["pytest-redis"]
 
 [[package]]
 category = "dev"
@@ -1136,7 +1119,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "a838d6cf29c2ad22bb5af45018107c47a2697ed38e3216529c1dcaacfb8c5d32"
+content-hash = "db54b38311da0d14bab82b2ccbfa4e05a3afcb47c2d48d4101aaeb4d16767266"
+lock-version = "1.0"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1566,9 +1550,6 @@ pytest-cov = [
 pytest-datadir = [
     {file = "pytest-datadir-1.3.1.tar.gz", hash = "sha256:d3af1e738df87515ee509d6135780f25a15959766d9c2b2dbe02bf4fb979cb18"},
     {file = "pytest_datadir-1.3.1-py2.py3-none-any.whl", hash = "sha256:1847ed0efe0bc54cac40ab3fba6d651c2f03d18dd01f2a582979604d32e7621e"},
-]
-pytest-dbfixtures = [
-    {file = "pytest-dbfixtures-1.0.0.tar.gz", hash = "sha256:8f69e3bd3fa007c54db4654dcc05d3ac3916a144f5b3c931d476b8aa778e1365"},
 ]
 pytest-html = [
     {file = "pytest-html-2.1.1.tar.gz", hash = "sha256:6a4ac391e105e391208e3eb9bd294a60dd336447fd8e1acddff3a6de7f4e57c5"},
