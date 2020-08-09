@@ -4,6 +4,10 @@ cache: 'pip'
 services:
 - docker
 
+env:
+  global:
+  - PATH=$HOME/.poetry/bin:$PATH
+
 jobs:
   include:
   - name: "lint"
