@@ -22,7 +22,7 @@ data = {
 
 
 # ジャッカード係数を計算
-def jaccard_similarity(x: Set[str], y: Set[str]):
+def jaccard_similarity(x: Set[str], y: Set[str]) -> float:
     intersection = len(x.intersection(y))
     union = len(x.union(y))
     return float(intersection / union)
