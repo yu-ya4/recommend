@@ -1,0 +1,27 @@
+language: python
+python: 3.7
+cache: 'pip'
+services:
+- docker
+
+env:
+  global:
+  - PATH=$HOME/.poetry/bin:$PATH
+
+jobs:
+  include:
+  - name: "lint"
+    before_script:
+    - sudo apt-get -qq update
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    - poetry config virtualenvs.create false
+    - poetry install
+    script:
+    - poetry run flake8 src/recommend
+    - poetry run flake8 tests
+    - poetry run mypy src/recommend
+    - poetry run mypy tests
+    - poetry run black src/recommend --check --diff
+    - poetry run black tests --check --diff
+    - poetry run pytest
+    if: type = "pull_request"

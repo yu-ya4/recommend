@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -uCx
+
+### flake8
+flake8 src/recommend
+flake8 tests
+
+### mypy
+mypy src/recommend
+mypy tests
+
+## black
+black src/recommend
+black tests
