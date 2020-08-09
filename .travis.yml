@@ -17,6 +17,11 @@ jobs:
     - poetry config virtualenvs.create false
     - poetry install
     script:
-    - poetry run scripts/lint
+    - poetry run flake8 src/recommend
+    - poetry run flake8 tests
+    - poetry run mypy src/recommend
+    - poetry run mypy tests
+    - poetry run black src/recommend --check --diff
+    - poetry run black tests --check --diff
     - poetry run pytest
     if: type = "pull_request"
